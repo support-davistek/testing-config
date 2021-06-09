@@ -1,4 +1,4 @@
-# Testing Config Docuemntation
+# Testing Config Documentation
 Testing procedures:  
 1. Get system info, copy to vtiger  
 2. Show ip interface  
