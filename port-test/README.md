@@ -1,7 +1,7 @@
 # Port Testing Commands
 Commands for port testing can be seen in the corresponding repository.  
   
-For common *`CISCO`* switches and routers,  
+For common **`CISCO`** switches and routers,  
 first issue `sh ip int b` to get the ip interface info.  
   
 Common **`CISCO switches`** port ping test procedures:  
