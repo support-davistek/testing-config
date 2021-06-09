@@ -1,0 +1,68 @@
+sh ip int b
+
+<FastEthernet>
+en
+conf t
+int f0/0
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+conf t
+int f0/0
+no ip add
+end
+
+en
+conf t
+int f0/1
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+conf t
+int f0/1
+no ip add
+end
+
+...
+
+<GigabitEthernet>
+en
+conf t
+int g0/0
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+conf t
+int g0/0
+no ip add
+end
+
+en
+conf t
+int g0/1
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+en
+conf t
+int g0/1
+media-type sfp
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+conf t
+int g0/1
+no ip add
+end
+
+...

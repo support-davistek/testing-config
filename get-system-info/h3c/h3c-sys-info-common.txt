@@ -1,0 +1,5 @@
+<Get System Info for H3C Router and Switches> 
+system-view
+display version
+display device
+display environment

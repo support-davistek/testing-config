@@ -1,0 +1,8 @@
+root
+
+cli
+
+show version
+show chassis hardware
+show chassis environment
+show system license

@@ -1,0 +1,4 @@
+sh ver
+sh inv
+sh env 
+sh software au ke

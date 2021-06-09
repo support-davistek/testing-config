@@ -1,0 +1,997 @@
+﻿diagnostic start switch 1 test all
+diagnostic start switch 2 test all
+
+sh diagnostic result switch 1 test all
+sh diagnostic result switch 1 failure
+sh inv
+sh env all
+en
+sh lic
+sh post
+
+
+tftp    Router(config)#ip tftp source-interface gig0/0/0
+
+
+sh ver
+sh inv
+sh diag
+sh env all
+en
+sh post
+sh lic
+sh lic udi
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+show gbic
+sh flash
+write erase
+wr er
+
+sh ip int
+sh ip int b
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+en
+config t
+int vlan1
+ip add 172.16.20.229 255.255.255.0
+no shut
+int range FastEthernet 0/1 - 48
+spanning-tree portfast
+spanning-tree bpdufilter en
+int range gigabitEthernet 1/0/1 - 28
+spanning-tree portfast
+spanning-tree bpdufilter en
+int range gigabitEthernet 6/1 - 48
+spanning-tree portfast
+spanning-tree bpdufilter en
+int range TenGigabitEthernet 1/0/1 - 2
+spanning-tree portfast
+spanning-tree bpdufilter en
+end
+en
+ping 172.16.20.227 size 2000 repeat 1500000000
+
+
+
+en
+config t
+conf t
+int f0/0
+no ip add
+int f0/0/0
+no shut
+switchport stacking-partner interface FastEthernet0/1/0
+
+en
+config t
+int vlan1
+ip add 172.16.20.228 255.255.255.0
+no shut
+int range gigabitEthernet 1/0/1 - 24
+spanning-tree portfast
+spanning-tree bpdufilter en
+int range gigabitEthernet 1/1/1 - 4
+spanning-tree portfast
+spanning-tree bpdufilter en
+int range TenGigabitEthernet 1/1/1 - 2
+spanning-tree portfast
+spanning-tree bpdufilter en
+no shut
+spanning-tree portfast
+end
+en
+ping 172.16.20.226 size 2000 repeat 1500000000
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+en
+conf t
+vlan 5
+state active
+no shut
+end
+int range 
+FastEthernet 0/13 - 24
+switchport access vlan 5
+end
+
+
+en
+conf t
+int g0/3
+media-type gbic
+speed 1000
+duplex full
+end
+ping 192.168.15.121 size 2000 repeat 1500
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+FE
+
+en
+conf t
+int f0/0
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+conf t
+int f0/0
+no ip add
+end
+
+en
+conf t
+int f0/1
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+conf t
+int f0/1
+no ip add
+end
+
+en
+config t
+int vlan1
+ip add 172.16.20.227 255.255.255.0
+no shut
+int range f 0/0/0 - 3
+spanning-tree portfast
+
+end
+ping 172.16.20.226 size 2000 repeat 150000
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Giga
+
+en
+conf t
+int g0/0
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+en
+conf t
+int g0/0/0
+media-type sfp
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+conf t
+int g0/0
+no ip add
+end
+
+en
+conf t
+int g0/1
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+en
+conf t
+int g0/1
+media-type sfp
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+conf t
+int g0/1
+no ip add
+end
+
+
+en
+conf t
+int g0/2
+ip add 172.16.20.228 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+en
+conf t
+int g0/2
+media-type sfp
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+conf t
+int g0/2
+no ip add
+end
+
+
+en
+conf t
+int g0/3
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+en
+conf t
+int g0/3
+media-type sfp
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+
+conf t
+int g0/3
+no ip add
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+en
+config t
+int range FastEthernet 0/1 - 24
+switchport mode access
+end
+
+en
+conf t
+int g0/0
+media-type rj45
+end
+
+en
+conf t
+int g0/0
+media-type sfp
+end
+ping 172.16.20.226 size 2000 repeat 1500
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+arp -d
+
+
+
+copy http://172.16.20.226/c1841-ipbasek9-mz.124-24.T.bin flash:
+
+en
+copy tftp fl
+172.16.20.19
+c2800nm-advipservicesk9-mz.150-1.M5.bin
+
+license install tftp://FGL193011KG_20151027021051.lic
+
+
+sh ver check Configuration register is 0x2142 2102
+
+Dont run config file
+confreg 0x2142
+
+Erase config file
+erase startup-config
+
+Flash not load
+show ver
+
+Backup config file
+copy running-config tftp:
+
+Run config file
+conf t
+config-register 0x2102
+
+
+break password
+control -> send break or Alt+B
+monitor: command "boot" aborted due to user interrupt
+rommon 1 > confreg 0x2142
+You must reset or power cycle for new config to take effect
+rommon 2 > i
+
+
+flash_init
+delete flash:config.text
+y
+delete flash:private-config.text
+y
+dir flash:
+
+boot
+
+boot on ext CF
+dir slot0:
+en
+conf t
+boot system slot0:c3725-ipbase-mz.123-7.T
+end
+wr
+reload
+
+
+
+rommon
+IP_ADDRESS=192.168.15.200
+
+IP_SUBNET_MASK=255.255.255.0
+
+DEFAULT_GATEWAY=172.16.20.226
+
+TFTP_SERVER=192.168.15.4
+
+TFTP_FILE=c2600-i-mz.123-23.bin
+
+tftpdnld
+
+
+
+for switch
+
+copy tftp flash:
+172.16.20.227
+c3750e-universalk9-mz.150-2.SE1.bin
+
+
+boot system flash:c3750e-universalk9-mz.150-2.SE1.bin
+write
+
+reload
+
+
+
+
+
+for switch xmodem
+set BAUD 115200
+copy xmodem: flash:c2600-i-mz.123-23.bin
+
+archive tar /xtract tftp://192.168.15.8/c3750e-universalk9-tar.150-2.SE.tar flash:
+c3750e-universalk9-tar.150-2.SE.tar
+
+
+verify flash:c3750e-universalk9-tar.150-2.SE.bin
+wr mem
+reload
+
+
+DCE
+en
+conf t
+int s0/0/1
+ip add 192.168.15.201 255.255.255.0
+no shut
+clockrate 9600
+no dce-terminal-timing-enable
+end
+ping 192.168.15.200 repeat 1500
+
+
+en
+conf t
+int s0/0/1
+no ip add
+end
+
+
+DTE  end no need clockrate
+but cannot in same ip range
+
+
+en
+conf t
+int s0
+ip add 192.168.15.201 255.255.255.0
+no shut
+end
+ping 192.168.15.200 repeat 1500
+
+en
+conf t
+int s0/1/0
+no ip add
+end
+
+conf t
+int s0/1/1
+ip add 192.168.15.201 255.255.255.0
+no shut
+end
+ping 192.168.15.200 repeat 200
+
+
+ping 192.168.15.200
+
+
+
+
+test switch
+en
+conf t
+int vlan1
+ip add 192.168.15.200 255.255.255.0
+no shut
+exit
+
+
+reset switch pw
+
+flash_init
+load_helper
+dir flash:
+rename flash:config.text flash:config.text.old
+boot
+
+
+
+
+______________________________________________________________________________
+
+
+
+en
+conf t
+dial-peer voice 1 pots
+destination-pattern 111
+port 0/0/0
+dial-peer voice 2 pots
+destination-pattern 122
+port 0/0/1
+dial-peer voice 3 pots
+destination-pattern 133
+port 0/0/2
+dial-peer voice 4 pots
+destination-pattern 144
+port 0/0/3
+dial-peer voice 5 pots
+destination-pattern 211
+port 0/1/0
+dial-peer voice 6 pots
+destination-pattern 222
+port 0/1/1
+dial-peer voice 7 pots
+destination-pattern 233
+port 0/1/2
+dial-peer voice 8 pots
+destination-pattern 244
+port 0/1/3
+dial-peer voice 9 pots
+destination-pattern 311
+port 0/2/0
+dial-peer voice 10 pots
+destination-pattern 322
+port 0/2/1
+dial-peer voice 11 pots
+destination-pattern 333
+port 0/2/2
+dial-peer voice 12 pots
+destination-pattern 344
+port 0/2/3
+dial-peer voice 13 pots
+destination-pattern 411
+port 0/3/0
+dial-peer voice 14 pots
+destination-pattern 422
+port 0/3/1
+dial-peer voice 15 pots
+destination-pattern 433
+port 0/3/2
+dial-peer voice 16 pots
+destination-pattern 444
+port 0/3/3
+end
+
+______________________________________________________________________________
+
+
+hostname VG202-1
+interface FastEthernet0/0
+ ip address 172.16.20.231 255.255.255.0
+ no ip route-cache
+ speed auto
+ full-duplex
+interface FastEthernet0/1
+ no ip address
+ no ip route-cache
+ shutdown
+ duplex auto
+ speed auto
+ip route 0.0.0.0 0.0.0.0 172.16.20.254
+!
+voice-port 0/0
+ cptone HK
+voice-port 0/1
+ cptone HK
+dial-peer voice 100 voip
+ destination-pattern .T
+ session protocol sipv2
+ session target ipv4:172.16.20.232
+dial-peer voice 200 pots
+ destination-pattern 111
+ port 0/0
+
+hostname VG202-2
+interface FastEthernet0/0
+ ip address 172.16.20.232 255.255.255.0
+ shutdown
+ duplex auto
+ speed auto
+interface FastEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ip route 0.0.0.0 0.0.0.0 172.16.20.254
+!
+voice-port 0/0
+ cptone HK
+voice-port 0/1
+ cptone HK
+dial-peer voice 101 voip
+ destination-pattern .T
+ session protocol sipv2
+ session target ipv4:172.16.20.231
+dial-peer voice 201 pots
+ destination-pattern 112
+ port 0/0
+
+
+______________________________________________________________________________
+
+
+
+
+AP
+
+hostname ap
+clock timezone +0800 8 0
+enable secret 5 $1$/Mlw$YmA3Ugj5MgwrD/9lPy6TF.
+dot11 ssid test
+   band-select
+   authentication open
+   authentication key-management wpa version 2
+   guest-mode
+   wpa-psk ascii 7 046B0A151C361C5C0D
+username Cisco password 7 0802455D0A16
+interface Dot11Radio0
+ no ip address
+ no shut
+ encryption mode ciphers aes-ccm tkip
+ ssid test
+ antenna gain 0
+ stbc
+ beamform ofdm
+
+interface Dot11Radio1
+ no ip address
+ no shut
+ encryption mode ciphers aes-ccm tkip
+ ssid test
+ antenna gain 0
+ no dfs band block
+ stbc
+ beamform ofdm
+ channel dfs
+
+!
+interface GigabitEthernet0
+ no ip address
+ no shut
+ duplex auto
+ speed auto
+ bridge-group 1
+ bridge-group 1 spanning-disabled
+ no bridge-group 1 source-learning
+!
+interface BVI1
+ ip address dhcp client-id GigabitEthernet0
+!
+ip route 0.0.0.0 0.0.0.0 172.16.20.254
+!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+en
+conf t
+int vlan1
+ip add 192.168.99.1 255.255.255.0
+no shut
+exit
+service dhcp
+ip dhcp pool vlan1
+dns-server 8.8.8.8 8.8.4.4
+default-router 192.168.99.1
+lease 0 12 0
+exit
+ip dhcp excluded-address 192.168.99.1 192.168.99.50
+exit
+
+
+
+
+
+conf t
+boot system flash:c3560e-universalk9-mz.122-58.SE2.bin
+end
+wr
+
+
+log
+restart
+
+
+
+en
+
+Show ver
+
+Show license status
+
+Show license udi
+
+Show flash:
+
+Show Inventory
+
+
+stop screen cap
+
+
+delete flash:c3560e-universalk9-mz.122-58.SE2.bin
+
+
+
+wr er
+
+
+
+en
+config t
+int vlan1
+no ip add
+no shut
+exit
+
+no boot system flash:c3560e-universalk9-mz.122-58.SE2.bin
+end
+wr
+
+
+ASA
+
+sh ver
+sh inv
+sh env 
+sh software au ke
+
+
+_____________________________________________________________________________\
+
+
+H3C
+system-view
+display  version
+display device
+display environment
+
+_____________________________________________________________________________
+
+config for web int S5500
+
+system-view
+interface Vlan-interface 1
+ip address 172.16.20.227 255.255.255.0
+local-user admin
+password simple Pasw0rd
+service-type telnet
+service-type web
+authorization-attribute level 3 
+telnet server enable
+ip http enable
+user-interfac vty 0 4
+authentication-mode scheme
+quit
+
+save
+
+ 
+
+如果是V7平台，第一步，建立用户名部分，这样：
+
+local-user admin class manage
+password simple Passw0rd
+service-type telnet http https
+authorization-attribute user-role level-15 
+authorization-attribute user-role network-admin
+quit
+
+_____________________________________________________________________________
+
+H3C
+Port testing
+
+
+system-view
+interface Vlan-interface 1
+ip address 172.16.20.227 255.255.255.0
+undo shutdown
+undo stp globe enable
+quit
+ping  -c 20000 -s 2000 172.16.20.226
+
+
+
+_____________________________________________________________________________
+
+
+
+Juniper
+
+root
+
+cli
+
+show version
+show chassis hardware
+show chassis environment
+show system license
+
+#SSG 140 
+get system
+get chassis
+get envar
+get license-key 
+
+
+g0/0/0 http://192.168.0.1
+config in web interface
+
+
+forti
+
+get hardware status
+get system status
+get system fortiguard
+
+
+
+ASR
+sh ver
+sh diag all eepeom / sh diag chassis eeprom
+sh diagnostic status
+sh inv
+sh env all
+
+_____________________________________________________________________________
+
+Nexus
+sh ver
+sh inv
+sh module
+sh env power
+sh env fan
+sh env temp
+sh diag result all
+sh lic usage
+sh lic
+
+sh int brief
+configure terminal
+
+system default switchport
+feature interface-vlan
+
+interface Vlan1
+  no shutdown
+  ip address 172.16.20.227/24
+
+
+
+int ethernet 1/1 - 54
+speed 1000
+spanning-tree port type edge
+no shut
+
+ip route 0.0.0.0/0 172.16.20.254
+ip route 0.0.0.0/0 Vlan1 172.16.20.254
+
+end
+ping 172.16.20.226 count unlimit
+
+
+_____________________________________________________________________________
+
+AP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+______________________________________________________________________________
+
+
+Juniper EX series
+
+
+root
+cli
+show version
+show chassis hardware
+show chassis environment
+show system license
+
+
+for show config
+show configuration | display set
+
+
+factory default command
+> request system zeroize
+
+default login: root
+no password
+
+
+for show config 
+run show configuration | display set
+
+
+______________________________________________________________________________
+
+EX2200 config step for test port
+
+configure
+set system root-authentication plain-text-password
+passw0rd
+commit
+
+delete interfaces me0 unit 0 family inet 
+delete interfaces vlan unit 0 family inet
+commit
+
+set interfaces vlan unit 0 family inet address 172.16.20.227/24
+commit
+
+delete protocols rstp
+commit
+
+
+
+run ping 172.16.20.226 count 200000000 size 2000
+
+______________________________________________________________________________
+
+EX4300 config step for test port
+
+configure
+set system root-authentication plain-text-password
+passw0rd
+passw0rd
+commit
+
+
+delete chassis auto-image-upgrade
+delete interfaces irb unit 0 family inet
+delete interfaces irb unit 0 family inet6
+commit
+
+set interfaces irb unit 0 family inet address 172.16.20.227/24
+delete protocols rstp
+commit
+
+
+
+run ping 172.16.20.226 count 200000000 size 2000
+
+
+
+
+
+
+______________________________________________________________________________
+
+EX4550 config step for test port
+
+configure
+set system root-authentication plain-text-password
+passw0rd
+passw0rd
+commit
+
+set system services web-management http
+delete chassis auto-image-upgrade
+commit
+
+set interfaces vlan unit 0 family inet address 172.16.20.227/24
+delete ethernet-switching-options storm-control interface all
+set routing-options static route 0.0.0.0/0 next-hop 172.16.20.254
+set vlans default l3-interface vlan.0
+delete protocols rstp
+
+commit
+
+
+
+run ping 172.16.20.226 count 200000000 size 2000
+
+
+
+
+
+
+______________________________________________________________________________
+
+---request virtual-chassis mode mixed disable
+---request virtual-chassis mode mixed ieee-clause-82 disable
+
+
+set system services ssh root-login allow
+set system services web-management http
+
+
+set system services dhcp pool 192.168.1.0/24 address-range low 192.168.1.2 high 192.168.1.253
+set system services dhcp pool 192.168.1.0/24 router 192.168.1.1
+set access address-assignment pool mgmt family inet network 192.168.1.0/24 range limited low 192.168.1.2 high 192.168.1.253
+
+set routing-options static route 0.0.0.0/0 next-hop 172.16.20.254
+
+
+delete protocols rstp
+delete protocols igmp-snooping
+delete protocols dcbx 
+delete protocols lldp
+delete protocols lldp-med
+delete ethernet-switching-options
+commit
+run ping 172.16.20.226 count 200000000 size 2000
+
+
+delete interfaces irb unit 0

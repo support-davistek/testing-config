@@ -1,0 +1,21 @@
+root
+cli
+show version
+show chassis hardware
+show chassis environment
+show system license
+
+
+for show config
+show configuration | display set
+
+
+factory default command
+> request system zeroize
+
+default login: root
+no password
+
+
+for show config 
+run show configuration | display set

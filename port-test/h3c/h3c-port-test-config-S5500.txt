@@ -1,0 +1,8 @@
+https://zhiliao.h3c.com/questions/dispcont/63558
+
+local-user admin class manage
+password simple Passw0rd
+service-type telnet http https
+authorization-attribute user-role level-15 
+authorization-attribute user-role network-admin
+quit

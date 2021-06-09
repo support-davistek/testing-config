@@ -1,0 +1,16 @@
+configure
+set system root-authentication plain-text-password
+passw0rd
+commit
+
+delete interfaces me0 unit 0 family inet 
+delete interfaces vlan unit 0 family inet
+commit
+
+set interfaces vlan unit 0 family inet address 172.16.20.227/24
+commit
+
+delete protocols rstp
+commit
+
+run ping 172.16.20.226 count 200000000 size 2000

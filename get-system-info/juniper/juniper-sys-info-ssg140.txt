@@ -1,0 +1,4 @@
+get system
+get chassis
+get envar
+get license-key 

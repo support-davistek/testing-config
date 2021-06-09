@@ -1,0 +1,22 @@
+sh ip int b
+
+en
+config t
+int vlan1
+ip add 172.16.20.229 255.255.255.0
+no shut
+int range FastEthernet 0/1 - 48
+spanning-tree portfast
+spanning-tree bpdufilter en
+int range gigabitEthernet 1/0/1 - 28
+spanning-tree portfast
+spanning-tree bpdufilter en
+int range gigabitEthernet 6/1 - 48
+spanning-tree portfast
+spanning-tree bpdufilter en
+int range TenGigabitEthernet 1/0/1 - 2
+spanning-tree portfast
+spanning-tree bpdufilter en
+end
+en
+ping 172.16.20.227 size 2000 repeat 1500000000

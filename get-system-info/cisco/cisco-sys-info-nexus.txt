@@ -1,0 +1,9 @@
+sh ver
+sh inv
+sh module
+sh env power
+sh env fan
+sh env temp
+sh diag result all
+sh lic usage
+sh lic

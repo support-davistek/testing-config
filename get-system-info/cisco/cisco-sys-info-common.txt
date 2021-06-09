@@ -1,0 +1,9 @@
+<Get System Info for Cisco Router and Switches> 
+en
+sh ver
+sh inv
+sh env all
+sh diag
+sh post
+sh lic 
+sh lic udi

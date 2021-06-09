@@ -1,0 +1,5 @@
+sh ver
+sh diag all eepeom / sh diag chassis eeprom
+sh diagnostic status
+sh inv
+sh env all
