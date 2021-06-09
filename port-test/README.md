@@ -4,7 +4,7 @@ Commands for port testing can be seen in the corresponding repository.
 For common *`CISCO`* switches and routers,  
 first issue `sh ip int b` to get the ip interface info.  
   
-Common `CISCO switches` port ping test procedures:  
+Common **`CISCO switches`** port ping test procedures:  
 1. `en`
 2. `config t`
 3. `int vlan1`
@@ -23,7 +23,7 @@ Common `CISCO switches` port ping test procedures:
 
 ----
   
-Common `CISCO routers` port ping test procedures:  
+Common **`CISCO routers`** port ping test procedures:  
 1. `en`
 2. `conf t`
 3. `int <first interface>`
@@ -51,5 +51,23 @@ continue for next port and repeat the process.
 19. `no ip add`
 20. `end`  
 ...  
+repeat until all ports are tested.
+
+----
   
-repeat until all ports are tested. 
+**`CISCO NEXUS Switches`** testing procedures:  
+1. `sh int brief`
+2. `configure terminal`
+3. `system default switchport`
+4. `feature interface-vlan`
+5. `interface Vlan1`
+6. `no shutdown`
+7. `ip address <ip address>
+8. `int <first interface> <1st port number> - <last port number>`
+9. `speed 1000`
+10. `spanning-tree port type edge`
+11. `no shut`
+12. `ip route 0.0.0.0/0 172.16.20.254`
+13. `ip route 0.0.0.0/0 Vlan1 172.16.20.254`
+14. `end`
+15. `ping <ip address of another switch> count unlimit`
