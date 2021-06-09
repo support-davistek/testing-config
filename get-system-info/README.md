@@ -1,7 +1,7 @@
 # Get System Info Commands
 Commands for getting system info can be seen in the correspondning repository.  
   
-For common `CISCO` routers and switches. System info can be collected with the following commands:  
+For common **`CISCO`** routers and switches. System info can be collected with the following commands:  
 1. `en`
 2. `sh ver`
 3. `sh inv`
@@ -11,7 +11,7 @@ For common `CISCO` routers and switches. System info can be collected with the f
 7. `sh lic`
 8. `sh lic udi`
   
-For common `CISCO NEXUS` switches. System info can be collected with the following commands:  
+For common **`CISCO NEXUS`** switches. System info can be collected with the following commands:  
 1. `sh ver`
 2. `sh inv`
 3. `sh module`
