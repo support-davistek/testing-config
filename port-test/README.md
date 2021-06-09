@@ -62,7 +62,7 @@ repeat until all ports are tested.
 4. `feature interface-vlan`
 5. `interface Vlan1`
 6. `no shutdown`
-7. `ip address <ip address>
+7. `ip address <ip address>`
 8. `int <first interface> <1st port number> - <last port number>`
 9. `speed 1000`
 10. `spanning-tree port type edge`
