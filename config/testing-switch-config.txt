@@ -1,0 +1,7 @@
+en
+conf t
+int vlan1
+ip add 172.16.20.227 255.255.255.0
+no shut
+end
+en
